@@ -38,7 +38,7 @@ def handle_webhook(data, last = None):
     requests.post(_url, json=data)
 
 def handle_sysout(data, last = None):
-    pprint.pprint(data)
+    print(json.dumps(data))
 
 def handle_mqtt(curr, last = None):
     if (cfg.getboolean('mqtt', 'expand')):
