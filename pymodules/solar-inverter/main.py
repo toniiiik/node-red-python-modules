@@ -4,6 +4,7 @@ import requests
 import configparser
 from inverter import Inverter
 import const as c
+from  config_wrapper import ConfigWrapper
 import paho.mqtt.client as mqtt
 import json
 import os
@@ -17,13 +18,13 @@ log=logging.getLogger(__name__)
 log.setLevel(logging.INFO)
 
 
-cfg = configparser.ConfigParser()
-cfg.read(os.path.dirname(__file__) + '/config.ini')
+cfg = ConfigWrapper.create_instance(os.path.dirname(__file__) + '/config.ini',os.path.dirname(__file__) + '/config.node.ini')
 _serial = cfg.getint('solarman','sn')
 _host = cfg.get('solarman','host')
 _port = cfg.getint('solarman','port',vars={'port':c.DEFAULT_PORT_INVERTER})
 _mb_slave = cfg.getint('solarman','mb_slave',vars={'mb_slave': c.DEFAULT_INVERTER_MB_SLAVEID})
 _inverter_file = "/{0}.yaml".format(cfg.get('default','inverter_type'))
+_pool_interval = cfg.getint('solarman','pool_interval', vars={'pool_interval': 15})
 
 log.info('Initializing inverter')
 
@@ -81,4 +82,4 @@ while True:
         h(_curVal, _lastValue)
 
     _lastValue = _curVal
-    time.sleep(15)
+    time.sleep(_pool_interval)
