@@ -8,7 +8,7 @@ import json
 import os
 
 cfg = configparser.ConfigParser()
-cfg.read('config.ini')
+cfg.read(os.path.dirname(__file__) + '/config.ini')
 _serial = cfg.getint('solarman','sn')
 _host = cfg.get('solarman','host')
 _port = cfg.getint('solarman','port',vars={'port':c.DEFAULT_PORT_INVERTER})
