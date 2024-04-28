@@ -1,3 +1,4 @@
+import logging.handlers
 import pprint
 import requests
 import configparser
@@ -9,7 +10,8 @@ import os
 import time
 import logging
 
-logging.basicConfig()
+
+logging.basicConfig(filemode='a', filename=os.path.dirname(__file__) + '/inverter.log')
 logging.root.setLevel(logging.WARN)
 log=logging.getLogger(__name__)
 log.setLevel(logging.INFO)
