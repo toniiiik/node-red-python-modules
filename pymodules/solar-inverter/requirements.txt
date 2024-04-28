@@ -3,5 +3,3 @@ pyyaml
 requests
 configparser
 paho-mqtt
-grpcio 
-grpcio-tools
